@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func getLightStatus(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "true")
+func homePage(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "pi-busylight is running")
 	fmt.Println("Endpoint Hit: homePage")
 }
 
@@ -24,10 +24,10 @@ func lightOff(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequests() {
-	http.HandleFunc("/", getLightStatus)
+	http.HandleFunc("/", homePage)
 	http.HandleFunc("/api/on", lightOn)
 	http.HandleFunc("/api/off", lightOff)
-	log.Fatal(http.ListenAndServe(":10000", nil))
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
 func main() {
