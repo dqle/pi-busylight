@@ -11,6 +11,8 @@ import (
 	"periph.io/x/periph/host"
 )
 
+var display = initializeBus()
+
 func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "pi-busylight is running")
 	fmt.Println("Endpoint Hit: homePage")
@@ -19,12 +21,15 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 func lightOn(w http.ResponseWriter, r *http.Request) {
 	status := "on"
 	fmt.Fprintf(w, status)
+	display.Fill(0, 0, 17, 7, 100)
+	display.Show()
 	fmt.Println("Endpoint Hit: lightOn")
 }
 
 func lightOff(w http.ResponseWriter, r *http.Request) {
 	status := "off"
 	fmt.Fprintf(w, status)
+	display.Clear()
 	fmt.Println("Endpoint Hit: lightOff")
 }
 
@@ -36,15 +41,15 @@ func handleRequests() {
 	log.Fatal(http.ListenAndServe(":80", router))
 }
 
-func main() {
-	fmt.Println("Starting Pi-Busylight")
-
+func initializeBus() *scrollphathd.Display {
 	_, _ = host.Init()
 	bus, _ := i2creg.Open("1")
 	display, _ := scrollphathd.New(bus)
-	display.SetBrightness(127)
-	display.Fill(0, 0, 5, 5, 255)
-	display.Show()
 
+	return display
+}
+
+func main() {
+	fmt.Println("Starting Pi-Busylight")
 	handleRequests()
 }
