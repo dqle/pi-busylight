@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 )
@@ -24,10 +25,12 @@ func lightOff(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequests() {
-	http.HandleFunc("/", homePage)
-	http.HandleFunc("/api/on", lightOn)
-	http.HandleFunc("/api/off", lightOff)
-	log.Fatal(http.ListenAndServe(":80", nil))
+	router := mux.NewRouter().StrictSlash(true)
+
+	router.HandleFunc("/", homePage)
+	router.HandleFunc("/api/on", lightOn).Methods("PUT")
+	router.HandleFunc("/api/off", lightOff).Methods("PUT")
+	log.Fatal(http.ListenAndServe(":80", router))
 }
 
 func main() {
