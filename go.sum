@@ -1,2 +1,8 @@
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
+github.com/icco/scroll-phat-hd-go v0.2.1 h1:0QwYDiiI8cOl6IY6kr0HhHXkB3NWx3Q04L+3b8oQy38=
+github.com/icco/scroll-phat-hd-go v0.2.1/go.mod h1:IQCnOJZPOIe6O09z7QrJ0azaiJaCabg7tdo/8YBMJDo=
+periph.io/x/periph v3.6.3-0.20200424164222-31adfeac64f0+incompatible h1:Ml6CL0cjs2eSogl5p8ka2sH0ilZjJzOF0oBeC5GgIvQ=
+periph.io/x/periph v3.6.3-0.20200424164222-31adfeac64f0+incompatible/go.mod h1:EWr+FCIU2dBWz5/wSWeiIUJTriYv9v2j2ENBmgYyy7Y=
+periph.io/x/periph v3.6.7+incompatible h1:ZfRdHbcxVekgSJZmxp3873YpxNdWs6wg7waDCF7GB18=
+periph.io/x/periph v3.6.7+incompatible/go.mod h1:EWr+FCIU2dBWz5/wSWeiIUJTriYv9v2j2ENBmgYyy7Y=

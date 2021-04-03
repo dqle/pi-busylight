@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.11
+  - 1.12
+  - 1.13
+  - 1.14
+
+matrix:
+  # Don't wait for tip tests to finish. Mark the test run green if the
+  # tests pass on the stable versions of Go.
+  fast_finish: true

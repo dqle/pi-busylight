@@ -6,6 +6,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	scrollphathd "github.com/icco/scroll-phat-hd-go"
+	"periph.io/x/periph/conn/i2c/i2creg"
+	"periph.io/x/periph/host"
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -35,5 +38,13 @@ func handleRequests() {
 
 func main() {
 	fmt.Println("Starting Pi-Busylight")
+
+	_, _ = host.Init()
+	bus, _ := i2creg.Open("1")
+	display, _ := scrollphathd.New(bus)
+	display.SetBrightness(127)
+	display.Fill(0, 0, 5, 5, 255)
+	display.Show()
+
 	handleRequests()
 }
