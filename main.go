@@ -27,7 +27,6 @@ func lightOff(w http.ResponseWriter, r *http.Request) {
 
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
-
 	router.HandleFunc("/", homePage)
 	router.HandleFunc("/api/on", lightOn).Methods("PUT")
 	router.HandleFunc("/api/off", lightOff).Methods("PUT")
@@ -35,5 +34,6 @@ func handleRequests() {
 }
 
 func main() {
+	fmt.Println("Starting Pi-Busylight")
 	handleRequests()
 }
