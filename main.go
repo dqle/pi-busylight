@@ -15,7 +15,7 @@ var display = initializeBus()
 
 func homePage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "pi-busylight is running")
-	fmt.Println("Endpoint Hit: homePage")
+	//fmt.Println("Endpoint Hit: homePage")
 }
 
 func lightOn(w http.ResponseWriter, r *http.Request) {
@@ -23,21 +23,21 @@ func lightOn(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, status)
 	display.Fill(0, 0, 17, 7, 100)
 	display.Show()
-	fmt.Println("Endpoint Hit: lightOn")
+	//fmt.Println("Endpoint Hit: lightOn")
 }
 
 func lightOff(w http.ResponseWriter, r *http.Request) {
 	status := "off"
 	fmt.Fprintf(w, status)
 	display.Clear()
-	fmt.Println("Endpoint Hit: lightOff")
+	//fmt.Println("Endpoint Hit: lightOff")
 }
 
 func handleRequests() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homePage)
-	router.HandleFunc("/api/on", lightOn).Methods("PUT")
-	router.HandleFunc("/api/off", lightOff).Methods("PUT")
+	router.HandleFunc("/api/on", lightOn).Methods("POST")
+	router.HandleFunc("/api/off", lightOff).Methods("POST")
 	log.Fatal(http.ListenAndServe(":80", router))
 }
 
