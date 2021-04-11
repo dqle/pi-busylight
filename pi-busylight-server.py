@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-#import signal
+import signal
 import time
-#import scrollphathd
+import scrollphathd
 from flask import Flask
 import logging
 
@@ -20,14 +20,14 @@ def home():
 
 @app.route('/api/on', methods=['POST'])
 def busylight_on():
-#    scrollphathd.fill(brightness=0.5)
-#    scrollphathd.show()
+    scrollphathd.fill(brightness=0.5)
+    scrollphathd.show()
     return "on"
 
 @app.route('/api/off', methods=['POST'])
 def busylight_off():
-#    scrollphathd.clear()
-#    scrollphathd.show()
+    scrollphathd.clear()
+    scrollphathd.show()
     return "off"
 
 if __name__ == '__main__':
