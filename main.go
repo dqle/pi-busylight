@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"os/exec"
 	"os/user"
+	"time"
 
 	"main/icon"
 
@@ -22,14 +24,15 @@ func main() {
 func onReady() {
 
 	//Create Server Config File if it does not exist
+	var restServerAddress serverAddress
 	u, _ := user.Current()
 	configFilePath := u.HomeDir + `\pi-busylight.cfg`
-	if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
-		serverAddress := promptNewServerAddress()
-		serverAddress.saveServerAddress(configFilePath)
+	_, err := os.Stat(configFilePath)
+	if os.IsNotExist(err) {
+		restServerAddress = promptNewServerAddress()
+		restServerAddress.saveServerAddress(configFilePath)
 	} else {
-		serverAddress := getServerAddress(configFilePath)
-		fmt.Println(serverAddress)
+		restServerAddress = getServerAddress(configFilePath)
 	}
 
 	//Hide Console Windows
@@ -54,8 +57,12 @@ func onReady() {
 	//Infinite Loop to listen if Mic is On
 	for {
 		if currentUserSubKeyList.getMicOnStatus(currentUser) || localMachineSubKeyList.getMicOnStatus(localMachine) {
+			_, _ = http.Post("http://"+restServerAddress.addressToString()+"/api/on", "application/json", nil)
+			time.Sleep(3 * time.Second)
 			systray.SetTooltip("MIC IS ON")
 		} else {
+			_, _ = http.Post("http://"+restServerAddress.addressToString()+"/api/off", "application/json", nil)
+			time.Sleep(3 * time.Second)
 			systray.SetTooltip("MIC IS OFF")
 		}
 

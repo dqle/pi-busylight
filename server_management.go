@@ -7,9 +7,9 @@ import (
 
 type serverAddress string
 
-func getServerAddress(configFilePath string) string {
-	serverAddress, _ := ioutil.ReadFile(configFilePath)
-	return string(serverAddress)
+func getServerAddress(configFilePath string) serverAddress {
+	address, _ := ioutil.ReadFile(configFilePath)
+	return serverAddress(address)
 }
 
 func promptNewServerAddress() serverAddress {
@@ -22,4 +22,8 @@ func promptNewServerAddress() serverAddress {
 
 func (s serverAddress) saveServerAddress(configFilePath string) {
 	ioutil.WriteFile(configFilePath, []byte(s), 0666)
+}
+
+func (s serverAddress) addressToString() string {
+	return string(s)
 }
